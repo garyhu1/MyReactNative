@@ -1,0 +1,28 @@
+{
+  "name": "gl-react-native",
+  "version": "2.42.2",
+  "description": "OpenGL bindings for react-native to implement complex effects over images and components, in the descriptive VDOM paradigm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectSeptemberInc/gl-react-native.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ProjectSeptemberInc/gl-react-native/issues"
+  },
+  "homepage": "https://github.com/ProjectSeptemberInc/gl-react-native#readme",
+  "keywords": [
+    "gl",
+    "opengl",
+    "react",
+    "react-native"
+  ],
+  "author": "Project September <tech@projectseptember.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "*",
+    "gl-react": "^2.2.4"
+  },
+  "dependencies": {
+    "invariant": "2.2.0"
+  }
+}
