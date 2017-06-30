@@ -30,7 +30,7 @@ export default class NavigationDemo extends Component {
 	}
 
 	_btnClick() {
-		//	this.setState({show:!this.state.showText});
+			this.setState({show:!this.state.showText});
 		//	console.log('onPress');
 	}
 
@@ -48,10 +48,10 @@ export default class NavigationDemo extends Component {
           Double tap R on your keyboard to reload,{'\n'}
           Shake or press menu button for dev menu
         </Text>
-        <TouchableOpacity onPress={this._btnClick} style={styles.btn}>
+        <TouchableOpacity onPress={this._btnClick().bind(this)} style={styles.btn}>
            <Text style={styles.btnText}>Button</Text>
         </TouchableOpacity>
-        <TouchableHighlight onPress={this._btnClick} style={styles.touchBtn}>
+        <TouchableHighlight onPress={this._btnClick().bind(this)} style={styles.touchBtn}>
             <Text>Button</Text>
         </TouchableHighlight>
         <TouchableNativeFeedback
@@ -61,7 +61,7 @@ export default class NavigationDemo extends Component {
                <Text>Button</Text>
             </View>
         </TouchableNativeFeedback>
-        <TouchableWithoutFeedback onPress={this._btnClick} style={styles.touchBtn}>
+        <TouchableWithoutFeedback onPress={this._btnClick().bind(this)} style={styles.touchBtn}>
             <View style={styles.touchBtn}>
                  <Text>Button</Text>
             </View>
@@ -104,27 +104,6 @@ class CombinationAnim extends Component {
 	constructor(props) {
 		super(props);
 	}
-
-	Animated.sequence([ // 首先执行decay动画，结束后同时执行spring和twirl动画
-		Animated.decay(position, { // 滑行一段距离后停止
-			velocity: {
-				x: gestureState.vx,
-				y: gestureState.vy
-			}, // 根据用户的手势设置速度
-			deceleration: 0.997,
-		}),
-		Animated.parallel([ // 在decay之后并行执行：
-			Animated.spring(position, {
-				toValue: {
-					x: 0,
-					y: 0
-				} // 返回到起始点开始
-			}),
-			Animated.timing(twirl, { // 同时开始旋转
-				toValue: 360,
-			}),
-		]),
-	]).start(); // 执行这一整套动画序列
 	
 	render() {
 		return (
@@ -144,7 +123,7 @@ class MyAnimate extends Component {
 			   </FadeInView>
 			   <CombinationAnim>
 			        <Text style={{fontSize: 28, textAlign: 'center', margin: 10,color: '#fff'}}>Sequence Anim</Text>
-			   <CombinationAnim>
+			   </CombinationAnim>
 			</View>
 		);
 	}
