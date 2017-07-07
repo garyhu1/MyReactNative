@@ -136,8 +136,8 @@ export default class MenuBall extends Component {
 	render() {
 		return(
 			<View
-      {...this._panResponder.panHandlers}
-      style={[styles.circle,this.state.style]}/>
+               {...this._panResponder.panHandlers}
+               style={[styles.circle,this.state.style]}/>
 		);
 	}
 }

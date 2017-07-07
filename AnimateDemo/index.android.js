@@ -14,11 +14,28 @@ import {
 	View,
 	Animated,
 	Image,
+	Button,
 	Easing,
 	PanResponder
 } from 'react-native';
 
+import { StackNavigator } from 'react-navigation';
+
 import App from './app';
+import GestureAnim from './GeneratorAnim';
+import MyLayoutAnimate from './MyLayoutAnimate';
+import MyToast from './MyToast';
+import MyActivityIndicator from './MyActivityIndicator';
+import MyButton from './MyButton';
+import MyDrawerLayoutAndroid from './MyDrawerLayoutAndroid';
+import MyImage from './MyImage';
+import MyKeyboardAvoidingView from './MyKeyboardAvoidingView';
+import MyListView from './MyListView';
+import ListViewDemo from './ListViewDemo';
+import ListViewSticky from './ListViewSticky';
+import MyModal from './MyModal';
+import ChatScreen from './MyNavigation';
+import MyFlatList from './MyFlatList';
 
 export default class AnimateDemo extends Component {
 	render() {
@@ -116,14 +133,6 @@ class MixAnimate extends Component {
 		}
 	}
 
-	//	getInitialState() {
-	//		return ({
-	//			fadeInOpacity: new Animated.Value(0),
-	//			rotation: new Animated.Value(0),
-	//			fontSize: new Animated.Value(0)
-	//		});
-	//	}
-
 	componentDidMount() {
 		let timing = Animated.timing;
 		Animated.parallel(['fadeInOpacity', 'rotation', 'fontSize'].map(poperty => {
@@ -211,7 +220,7 @@ class CombinationAnim extends Component {
                         inputRange: [0,1],
                         outputRange: [0,200]
                     })
-              }]}>
+                 }]}>
                 <Text style={styles.text}>我是第{i + 1}个View</Text>
  
               </Animated.View>
@@ -258,6 +267,51 @@ class DraggerAnim extends Component {
    }
 }
 
+class HomeScreen extends Component {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View>
+        <Text>Hello, Chat App!</Text>
+        <Button
+          onPress={() => navigate('Chat',{user: 'garyhu'})}
+          title="Chat with Lucy"
+        />
+      </View>
+    );
+  }
+}
+
+const SimpleApp = StackNavigator({
+  Home: { screen: HomeScreen },
+  Chat: { screen: ChatScreen },
+  MyModal: {screen: MyModal },
+  MyFlatList: {screen: MyFlatList }
+}, {
+    initialRouteName: 'Home', // 默认显示界面
+    navigationOptions: {  // 屏幕导航的默认选项, 也可以在组件内用 static navigationOptions 设置(会覆盖此处的设置)
+        header: {  // 导航栏相关设置项
+            backTitle: '返回',  // 左上角返回键文字
+            style: {
+                backgroundColor: '#fff'
+            },
+            titleStyle: {
+                color: 'green'
+            }
+        },
+        cardStack: {
+            gesturesEnabled: true
+        }
+    }, 
+    mode: 'modal',  // 页面切换模式, 左右是card(相当于iOS中的push效果), 上下是modal(相当于iOS中的modal效果)
+    headerMode: 'screen', // 导航栏的显示模式, screen: 有渐变透明效果, float: 无透明效果, none: 隐藏导航栏
+    onTransitionStart: ()=>{ console.log('导航栏切换开始'); },  // 回调
+    onTransitionEnd: ()=>{ console.log('导航栏切换结束'); }  // 回调
+});
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -294,4 +348,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-AppRegistry.registerComponent('AnimateDemo', () => DraggerAnim);
+AppRegistry.registerComponent('AnimateDemo', () => SimpleApp);
